@@ -38,4 +38,19 @@ public class Vector {
     }
 
 
+    public Vector moveForward() {
+        switch(direction)
+        {
+            case 'N':
+                return new Vector(this.x,this.y+1,this.direction);
+            case 'S':
+                return new Vector(this.x,this.y-1,this.direction);
+            case 'E':
+                return new Vector(this.x+1,this.y,this.direction);
+            case 'W':
+                return new Vector(this.x-1,this.y,this.direction);
+            default:
+                throw new IllegalStateException("Unexpected value: " + direction);
+        }
+    }
 }

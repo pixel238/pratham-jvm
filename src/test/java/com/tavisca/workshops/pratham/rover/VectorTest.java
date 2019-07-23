@@ -8,70 +8,64 @@ public class VectorTest {
     @Test
     void vectorInitilizationWithGivenPositionDetails() {
         Vector r = new Vector(10,10,'N');
-        assertEquals(10,r.X());
-        assertEquals(10,r.Y());
-        assertEquals('N',r.Direction());
+        assertEquals(10,r.x);
+        assertEquals(10,r.y);
+        assertEquals('N',r.direction);
     }
 
     @Test
     void vectorCanRotateLeftFromNorth(){
         Vector r = new Vector(10,10,'N');
         Vector newVector=r.turnLeft();
-        assertEquals('W',newVector.Direction());
+        assertEquals('W',newVector.direction);
     }
 
     @Test
     void vectorCanRotateLeftFromWest(){
         Vector r = new Vector(10,10,'W');
         Vector newVector=r.turnLeft();
-        assertEquals('S',newVector.Direction());
+        assertEquals('S',newVector.direction);
     }
 
     @Test
     void vectorCanRotateLeftFromSouth(){
         Vector r = new Vector(10,10,'S');
         Vector newVector=r.turnLeft();
-        assertEquals('E',newVector.Direction());
+        assertEquals('E',newVector.direction);
     }
 
     @Test
     void vectorCanRotateLeftFromEast(){
         Vector r = new Vector(10,10,'E');
         Vector newVector=r.turnLeft();
-        assertEquals('N',newVector.Direction());
+        assertEquals('N',newVector.direction);
     }
 
     @Test
     void vectorCanRotateRightFromNorth(){
         Vector r = new Vector(10,10,'N');
         Vector newVector=r.turnRight();
-        assertEquals('E',newVector.Direction());
+        assertEquals('E',newVector.direction);
     }
 
     @Test
     void vectorCanRotateRightFromWest(){
         Vector r = new Vector(10,10,'W');
         Vector newVector=r.turnRight();
-        assertEquals('N',newVector.Direction());
+        assertEquals('N',newVector.direction);
     }
 
     @Test
     void vectorCanRotateRightFromSouth(){
         Vector r = new Vector(10,10,'S');
         Vector newVector=r.turnRight();
-        assertEquals('W',newVector.Direction());
+        assertEquals('W',newVector.direction);
     }
 
     @Test
     void vectorCanRotateRightFromEast(){
         Vector r = new Vector(10,10,'E');
         Vector newVector=r.turnRight();
-        assertEquals('S',newVector.Direction());
-    }
-
-    @Test
-    void vectorCanMove(){
-        Vector r = new Vector(10,10,'N');
-        Vector newVector=
+        assertEquals('S',newVector.direction);
     }
 }

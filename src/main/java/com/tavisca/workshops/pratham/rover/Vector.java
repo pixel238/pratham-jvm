@@ -1,9 +1,11 @@
 package com.tavisca.workshops.pratham.rover;
 
+import java.util.HashMap;
+
 public class Vector {
-    private final int x;
-    private final int y;
-    private final char direction;
+    public final int x;
+    public final int y;
+    public final char direction;
 
     public Vector(int x, int y, char direction) {
         this.x = x;
@@ -11,58 +13,28 @@ public class Vector {
         this.direction = direction;
     }
 
-    public int X() {
-        return x;
-    }
+    private static HashMap<Character,Character> leftMap
+            = new HashMap<>(){{
+                put('N','W');
+                put('W','S');
+                put('S','E');
+                put('E','N');
+    }};
 
-    public int Y() {
-        return y;
-    }
-
-    public char Direction() {
-        return direction;
-    }
+    private static HashMap<Character,Character> RightMap
+            = new HashMap<>(){{
+        put('N','E');
+        put('W','N');
+        put('S','W');
+        put('E','S');
+    }};
 
     public Vector turnLeft() {
-        char newDirection;
-        switch (direction) {
-            case 'N':
-                newDirection = 'W';
-                break;
-            case 'W':
-                newDirection = 'S';
-                break;
-            case 'S':
-                newDirection = 'E';
-                break;
-            case 'E':
-                newDirection = 'N';
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + direction);
-        }
-        return new Vector(this.x,this.y,newDirection);
+        return new Vector(this.x,this.y,leftMap.get(this.direction));
     }
 
     public Vector turnRight() {
-        char newDirection;
-        switch (direction) {
-            case 'N':
-                newDirection = 'E';
-                break;
-            case 'W':
-                newDirection = 'N';
-                break;
-            case 'S':
-                newDirection = 'W';
-                break;
-            case 'E':
-                newDirection = 'S';
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + direction);
-        }
-        return new Vector(this.x,this.y,newDirection);
+        return new Vector(this.x,this.y,RightMap.get(this.direction));
     }
 
 

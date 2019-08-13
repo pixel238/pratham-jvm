@@ -1,0 +1,60 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                sh script: '''
+                    echo "I am in build step"
+                    javac -d ./classes src/com/tavisca/main/NoLineSegment.java
+                    javac -d ./classes -cp ./classes src/com/tavisca/test/NoLineSegmentTest.java
+                ''',
+            label: "Building Project"
+            }
+        }
+        stage('Test')
+        {
+            steps {
+                sh script: '''
+                    echo "I am in Test step"
+                    javac src/com/tavisca/main/NoLineSegment.java
+                    javac src/com/tavisca/test/NoLineSegmentTest.java
+		            java src/com/tavisca/main/NolineSegmentTest
+                ''',
+            label: "Running Unit Test Cases"
+            }
+        }
+        stage('Static Code Analysis')
+        {
+            steps {
+                sh script: '''
+                    echo "I am in Sonarqube scan"
+                ''',
+            label: "Running Sonarqube Scan"
+            }
+        }
+        stage('Build DockerImage')
+        {
+            steps {
+                sh script: '''
+                    echo "I am Building DockerImage ="
+                ''',
+            label: "Building Docker Image"
+            }
+        }
+        stage('Publish DockerImage')
+        {
+            steps {
+                sh script: '''
+                    echo "I am Pubishing DockerImage ="
+                ''',
+            label: "Publishing Docker Image"
+            }
+        }
+    }
+	post{
+		always{
+
+		deleteDir()
+}
+}
+}

@@ -42,28 +42,28 @@ public class RoverTest {
     @Test
     void RoverTurnRightWhenFacingNorth(){
         Rover r = new Rover(new Vector(10, 10, 'N'));
-        r.turnLeft();
+        r.turnRight();
         assertEquals("10 10 E", r.getPosition());
     }
 
     @Test
     void RoverTurnRightWhenFacingWest(){
         Rover r = new Rover(new Vector(10, 10, 'W'));
-        r.turnLeft();
+        r.turnRight();
         assertEquals("10 10 N", r.getPosition());
     }
 
     @Test
     void RoverTurnRightWhenFacingSouth(){
         Rover r = new Rover(new Vector(10, 10, 'S'));
-        r.turnLeft();
+        r.turnRight();
         assertEquals("10 10 W", r.getPosition());
     }
 
     @Test
     void RoverTurnRightWhenFacingEast(){
         Rover r = new Rover(new Vector(10, 10, 'E'));
-        r.turnLeft();
+        r.turnRight();
         assertEquals("10 10 S", r.getPosition());
     }
 

@@ -5,8 +5,8 @@ pipeline {
             steps {
                 sh script: '''
                     echo "I am in build step"
-                    javac -d ./classes src/com/tavisca/main/NoLineSegment.java
-                    javac -d ./classes -cp ./classes src/com/tavisca/test/NoLineSegmentTest.java
+                    chmod +x ./gradlew
+                    ./gradlew build
                 ''',
             label: "Building Project"
             }
@@ -16,9 +16,6 @@ pipeline {
             steps {
                 sh script: '''
                     echo "I am in Test step"
-                    javac src/com/tavisca/main/NoLineSegment.java
-                    javac src/com/tavisca/test/NoLineSegmentTest.java
-		            java src/com/tavisca/main/NolineSegmentTest
                 ''',
             label: "Running Unit Test Cases"
             }

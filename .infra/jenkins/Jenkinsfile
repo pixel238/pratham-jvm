@@ -22,10 +22,14 @@ pipeline {
         }
         stage('Static Code Analysis')
         {
+            environment {
+                SONAR_SCANNER_OPTS = "-Xmx2g"
+            }
             steps {
                 sh script: '''
                     echo "I am in Sonarqube scan"
-                    /home/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/sonarqubescanner/bin/sonar-scanner -Dsonar.host.url=http://localhost:9000 -Dsonar.projectName=meanstackapp -Dsonar.projectVersion=1.0 -Dsonar.projectKey=meanstack:app -Dsonar.sources=. -Dsonar.projectBaseDir=/home/jenkins/workspace/sonarqube_test_pipeline
+                    pwd
+                    /opt/sonar-scanner/bin/sonar-scanner -Dproject.settings=sonar-project.properties
                 ''',
             label: "Running Sonarqube Scan"
             }

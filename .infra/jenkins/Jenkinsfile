@@ -28,8 +28,7 @@ pipeline {
             steps {
                 sh script: '''
                     echo "I am in Sonarqube scan"
-                    pwd
-                    /opt/sonar-scanner/bin/sonar-scanner -Dproject.settings=sonar-project.properties
+                    mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dlicense.skip=true
                 ''',
             label: "Running Sonarqube Scan"
             }

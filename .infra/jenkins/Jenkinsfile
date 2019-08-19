@@ -26,13 +26,16 @@ pipeline {
         }
         stage('Static Code Analysis')
         {
+            environment{
+                scannerHome = tool 'SonarQubeScanner'
+            }
             steps {
-                  sh script: '''
-                     echo "I am in sonarqube step"
-                     chmod +x ./gradlew
-                     ./gradlew sonarqube
-                  ''',
-            label: "Running Sonarqube Scan"
+                  withSonarQubeEnv('sonarqube') {
+                              sh "${scannerHome}/bin/sonar-scanner"
+                          }
+                          timeout(time: 10, unit: 'MINUTES') {
+                              waitForQualityGate abortPipeline: true
+                          }
             }
         }
         stage('Build DockerImage')

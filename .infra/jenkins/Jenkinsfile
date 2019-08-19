@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    environment {
+        registry = "pixel238/firsttry"
+        registryCredential = "9339194567"
+    	}
     stages {
         stage('Build') {
             steps {

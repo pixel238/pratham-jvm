@@ -47,7 +47,7 @@ pipeline {
         {
             steps {
                     echo "I am Pubishing DockerImage"
-                    docker login -u pixel238 -p 9339194567
+                    sh "docker login -u pixel238 -p 9339194567"
                     sh "docker tag jenkins pixel238/firsttry"
                     sh "docker push pixel238/firsttry:latest"
             }

@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         registry = "pixel238/firsttry"
-        registryCredential = "!c&iuCm2L+sA,i2"
+        registryCredential = "dockerhub"
     	}
     stages {
         stage('Build') {

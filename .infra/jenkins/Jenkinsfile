@@ -22,14 +22,10 @@ pipeline {
         }
         stage('Static Code Analysis')
         {
-            environment {
-                SONAR_SCANNER_OPTS = "-Xmx2g"
-            }
             steps {
-                sh script: '''
-                    echo "I am in Sonarqube scan"
-                    mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dlicense.skip=true
-                ''',
+                  sh script: '''
+                     echo "I am in sonarqube step"
+                  ''',
             label: "Running Sonarqube Scan"
             }
         }
@@ -45,10 +41,9 @@ pipeline {
         stage('Publish DockerImage')
         {
             steps {
-                sh script: '''
-                    echo "I am Pubishing DockerImage ="
-                ''',
-            label: "Publishing Docker Image"
+                    echo "I am Pubishing DockerImage"
+                    sh "docker tag cd14cecfdb3a pixel238/firsttry"
+                    sh "docker push pixel238/firsttry:latest"
             }
         }
     }

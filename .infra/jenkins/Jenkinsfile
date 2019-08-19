@@ -38,7 +38,7 @@ pipeline {
             steps {
                 sh script: '''
                     echo "I am Building DockerImage ="
-                    docker build --no-cache -t 'jenkins:1.0' -f .infra/docker/Dockerfile .
+                    docker build --no-cache -t 'jenkins' -f .infra/docker/Dockerfile .
                 ''',
             label: "Building Docker Image"
             }

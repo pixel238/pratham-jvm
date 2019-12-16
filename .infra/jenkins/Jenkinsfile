@@ -1,0 +1,66 @@
+pipeline {
+    agent any
+    parameters{
+        string(name:"DOCKER_USERNAME")
+        password(name:"DOCKER_PASSWORD")
+    }
+    stages {
+        stage('Build') {
+            steps {
+                sh script: '''
+                    echo "I am in build step"
+                    chmod +x ./gradlew
+                    ./gradlew build
+                ''',
+            label: "Building Project"
+            }
+        }
+        stage('Test')
+        {
+            steps {
+                sh script: '''
+                    echo "I am in Test step"
+                ''',
+            label: "Running Unit Test Cases"
+            }
+        }
+        stage('Static Code Analysis')
+        {
+            environment{
+                scannerHome = tool 'SonarQubeScanner'
+            }
+            steps {
+                  withSonarQubeEnv('sonarqube') {
+                              sh "${scannerHome}/bin/sonar-scanner"
+                          }
+                          timeout(time: 10, unit: 'MINUTES') {
+                              waitForQualityGate abortPipeline: true
+                          }
+            }
+        }
+        stage('Build DockerImage')
+        {
+            steps {
+                sh script: '''
+                    echo "I am Building DockerImage ="
+                    docker build --no-cache -t 'jenkins' -f .infra/docker/Dockerfile .
+                ''',
+            label: "Building Docker Image"
+            }
+        }
+        stage('Publish DockerImage')
+        {
+            steps {
+                    echo "I am Pubishing DockerImage"
+                    sh "docker login -u ${env:DOCKER_USERNAME} -p ${env:DOCKER_PASSWORD}"
+                    sh "docker tag jenkins:latest pixel238/firsttry:latest"
+                    sh "docker push pixel238/firsttry:latest"
+            }
+        }
+    }
+	post{
+		always{
+		deleteDir()
+        }
+    }
+}
